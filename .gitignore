@@ -1,0 +1,34 @@
+
+# Environment variables and secrets
+.env
+.env.*
+
+# Python virtual environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Private uploaded documents
+uploads/
+
+# Generated website files
+generated_websites/
+
+# Database files
+*.db
+*.sqlite3
+
+# IDE files
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db

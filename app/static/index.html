@@ -1,0 +1,2298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        AI Business Studio
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="/static/style.css"
+    >
+
+    <style>
+
+        /* ==========================================
+           WEBSITE BUILDER
+        ========================================== */
+
+        .website-builder {
+            margin-top: 30px;
+        }
+
+        .website-builder-header {
+            margin-bottom: 24px;
+        }
+
+        .website-builder-header h2 {
+            margin-bottom: 8px;
+        }
+
+        .website-builder-header p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        .website-builder-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+        }
+
+        .website-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .website-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .website-form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .website-form-group label {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .website-form-group input,
+        .website-form-group textarea,
+        .website-form-group select {
+            width: 100%;
+            border: 1px solid #dbe1ea;
+            border-radius: 10px;
+            padding: 13px 14px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            background: #ffffff;
+        }
+
+        .website-form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .website-form-group input:focus,
+        .website-form-group textarea:focus,
+        .website-form-group select:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.10);
+        }
+
+        .website-pages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .website-page-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+            background: #f8fafc;
+            cursor: pointer;
+        }
+
+        .website-page-option input {
+            width: auto;
+        }
+
+        .website-generate-button {
+            margin-top: 25px;
+            background: #4f46e5;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .website-generate-button:hover {
+            background: #4338ca;
+        }
+
+        .website-generate-button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .website-status {
+            margin-top: 16px;
+            min-height: 24px;
+            font-weight: 600;
+        }
+
+        .website-result {
+            display: none;
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 14px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .website-result h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .website-result p {
+            color: #64748b;
+        }
+
+        .website-result-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .website-action-button {
+            display: inline-block;
+            text-decoration: none;
+            border: none;
+            border-radius: 9px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .website-preview-button {
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+        .website-download-button {
+            background: #16a34a;
+            color: #ffffff;
+        }
+
+        .website-delete-button {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+        .website-action-button:hover {
+            opacity: 0.9;
+        }
+
+        .website-info {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+
+        /* ==========================================
+           GENERATED WEBSITES
+        ========================================== */
+
+        .generated-websites {
+            margin-top: 30px;
+        }
+
+        .generated-websites-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+        }
+
+        .generated-websites-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .generated-websites-header h2 {
+            margin: 0 0 6px;
+        }
+
+        .generated-websites-header p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .website-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .website-list-empty {
+            grid-column: 1 / -1;
+            padding: 35px;
+            text-align: center;
+            color: #64748b;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+        .website-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 22px;
+            background: #ffffff;
+            transition: 0.2s;
+        }
+
+        .website-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        .website-item-icon {
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: #eef2ff;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .website-item h3 {
+            margin: 0 0 8px;
+            color: #0f172a;
+        }
+
+        .website-item-description {
+            color: #64748b;
+            font-size: 14px;
+            min-height: 66px;
+            margin-bottom: 14px;
+        }
+
+        .website-item-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .website-meta-badge {
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .website-item-actions {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .website-item-actions a,
+        .website-item-actions button {
+            text-decoration: none;
+            border: none;
+            padding: 9px 13px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .website-list-preview {
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+        .website-list-download {
+            background: #16a34a;
+            color: #ffffff;
+        }
+
+        .website-list-delete {
+            background: #dc2626;
+            color: #ffffff;
+        }
+
+        .website-list-delete:hover {
+            background: #b91c1c;
+        }
+
+        @media (max-width: 1000px) {
+
+            .website-list {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 800px) {
+
+            .website-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .website-form-group.full-width {
+                grid-column: auto;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .website-list {
+                grid-template-columns: 1fr;
+            }
+
+            .generated-websites-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+
+
+        /* Polished Invoice Details popup */
+        #invoiceModal.modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(15, 23, 42, 0.58);
+            backdrop-filter: blur(4px);
+            overflow-y: auto;
+        }
+
+        #invoiceModal .invoice-details-modal {
+            position: relative;
+            width: min(100%, 720px);
+            max-width: 720px;
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            background: #ffffff;
+            box-shadow: 0 24px 70px rgba(15, 23, 42, 0.24);
+            color: #0f172a;
+        }
+
+        #invoiceModal .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 0 0 24px;
+            padding: 0 0 18px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        #invoiceModal .modal-header h2 {
+            margin: 0;
+            font-size: 25px;
+            line-height: 1.3;
+            font-weight: 750;
+            color: #0f172a;
+        }
+
+        #invoiceModal .close-button {
+            display: inline-flex;
+            flex: 0 0 38px;
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 10px;
+            background: #f1f5f9;
+            color: #334155;
+            font-size: 25px;
+            line-height: 1;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        #invoiceModal .close-button:hover {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        #invoiceModal .invoice-details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        #invoiceModal .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            min-width: 0;
+            padding: 16px 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+        }
+
+        #invoiceModal .detail-item span {
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.045em;
+            text-transform: uppercase;
+        }
+
+        #invoiceModal .detail-item strong {
+            overflow-wrap: anywhere;
+            color: #0f172a;
+            font-size: 15px;
+            font-weight: 650;
+            line-height: 1.45;
+        }
+
+        #invoiceModal .detail-item.total-detail {
+            border-color: #c7d2fe;
+            background: #eef2ff;
+        }
+
+        #invoiceModal .detail-item.total-detail strong {
+            color: #4338ca;
+            font-size: 22px;
+        }
+
+        @media (max-width: 600px) {
+            #invoiceModal.modal {
+                padding: 12px;
+            }
+            #invoiceModal .invoice-details-modal {
+                padding: 20px;
+                border-radius: 16px;
+                max-height: calc(100vh - 24px);
+            }
+            #invoiceModal .modal-header h2 {
+                font-size: 21px;
+            }
+            #invoiceModal .invoice-details-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            #invoiceModal .detail-item {
+                padding: 13px 15px;
+            }
+        }
+
+
+        /* Professional Upload Invoice modal */
+        #uploadModal.modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(15, 23, 42, 0.60);
+            backdrop-filter: blur(5px);
+            overflow-y: auto;
+        }
+        #uploadModal .modal-content {
+            width: min(100%, 520px);
+            max-width: 520px;
+            margin: auto;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 0 24px 70px rgba(15, 23, 42, 0.28);
+            color: #0f172a;
+        }
+        #uploadModal .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 0 0 12px;
+            padding: 0 0 18px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        #uploadModal .modal-header h2 {
+            margin: 0;
+            font-size: 25px;
+            line-height: 1.3;
+            font-weight: 750;
+            color: #0f172a;
+        }
+        #uploadModal .close-button {
+            display: inline-flex;
+            flex: 0 0 40px;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            border: 0;
+            border-radius: 11px;
+            background: #f1f5f9;
+            color: #334155;
+            font-size: 25px;
+            line-height: 1;
+            cursor: pointer;
+        }
+        #uploadModal .close-button:hover {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+        #uploadModal .modal-body p {
+            margin: 0 0 18px;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        #uploadModal input[type="file"] {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            background: #f8fafc;
+            color: #334155;
+            font: inherit;
+        }
+        #uploadModal input[type="file"]::file-selector-button {
+            margin-right: 12px;
+            padding: 9px 13px;
+            border: 0;
+            border-radius: 8px;
+            background: #e0e7ff;
+            color: #4338ca;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        #uploadModal .upload-status {
+            min-height: 22px;
+            margin-top: 12px;
+            color: #475569;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+        #uploadModal .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        #uploadModal .modal-footer button {
+            min-height: 44px;
+            padding: 11px 18px;
+            border-radius: 10px;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        #uploadModal .modal-footer .secondary-button {
+            border: 1px solid #dbe3ee;
+            background: #fff;
+            color: #334155;
+        }
+        #uploadModal .modal-footer .primary-button {
+            border: 1px solid #4f46e5;
+            background: #4f46e5;
+            color: #fff;
+        }
+        #uploadModal .modal-footer .primary-button:hover {
+            background: #4338ca;
+        }
+        @media (max-width: 520px) {
+            #uploadModal.modal { padding: 12px; }
+            #uploadModal .modal-content { padding: 20px; border-radius: 16px; }
+            #uploadModal .modal-header h2 { font-size: 21px; }
+            #uploadModal .modal-footer { flex-direction: column-reverse; align-items: stretch; }
+            #uploadModal .modal-footer button { width: 100%; }
+        }
+
+
+        /* Invoice search field polish */
+        #invoicePanel .search-container {
+            padding: 16px 22px;
+        }
+        #invoiceSearch {
+            width: 100%;
+            max-width: 360px;
+            box-sizing: border-box;
+            padding: 11px 14px;
+            border: 1px solid #dbe3ee;
+            border-radius: 10px;
+            background: #fff;
+            color: #0f172a;
+            font: inherit;
+            outline: none;
+        }
+        #invoiceSearch:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     SIDEBAR
+========================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <div class="logo-icon">
+            AI
+        </div>
+
+        <div>
+
+            <h2>
+                Business Studio
+            </h2>
+
+            <span>
+                AI Automation
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a
+            href="#dashboard"
+            class="nav-item active"
+            onclick="showDashboard()"
+        >
+            <span>📊</span>
+            Dashboard
+        </a>
+
+
+        <a
+            href="#invoices"
+            class="nav-item"
+            onclick="showInvoices()"
+        >
+            <span>🧾</span>
+            Invoices
+        </a>
+
+
+        <a
+            href="#website-builder"
+            class="nav-item"
+            onclick="showWebsiteBuilder()"
+        >
+            <span>🌐</span>
+            Website Builder
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-footer">
+
+        <div class="sidebar-footer-text">
+            AI Business Studio
+        </div>
+
+        <div class="sidebar-footer-version">
+            Version 1.0
+        </div>
+
+    </div>
+
+</aside>
+
+
+<!-- ==========================================
+     MAIN CONTENT
+========================================== -->
+
+<main class="main-content">
+
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <h1>
+                AI Business Studio
+            </h1>
+
+            <p>
+                Manage your business automation tools
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- ======================================
+         DASHBOARD
+    ======================================= -->
+
+    <section
+        id="dashboardSection"
+        class="dashboard-section"
+    >
+
+
+        <div class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🧾
+                </div>
+
+                <div>
+
+                    <p>
+                        Total Invoices
+                    </p>
+
+                    <h2 id="totalInvoices">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <div>
+
+                    <p>
+                        Total Amount
+                    </p>
+
+                    <h2 id="totalAmount">
+                        $0.00
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🌐
+                </div>
+
+                <div>
+
+                    <p>
+                        Websites
+                    </p>
+
+                    <h2 id="totalWebsites">
+                        0
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ==================================
+             INVOICE PANEL
+        =================================== -->
+
+
+
+    </section>
+
+
+    <!-- ======================================
+         INVOICES PAGE
+    ======================================= -->
+    <section id="invoicesSection" class="invoices-section" style="display: none;">
+        <div class="invoices-page-header" style="margin: 24px 0;">
+            <h2 style="margin: 0 0 8px; color: #0f172a;">Invoices</h2>
+            <p style="margin: 0; color: #64748b;">View, search, upload, and manage your invoices.</p>
+        </div>
+
+<div
+            class="panel"
+            id="invoicePanel"
+        >
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Recent Invoices
+                    </h2>
+
+                    <p>
+                        Analyze and manage your invoices
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="primary-button"
+                    onclick="openUpload()"
+                >
+                    + Upload Invoice
+                </button>
+
+            </div>
+
+
+            <div class="search-container">
+
+                <input
+                    type="text"
+                    id="invoiceSearch"
+                    placeholder="Search invoices..."
+                    oninput="filterInvoices()"
+                >
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Invoice
+                            </th>
+
+                            <th>
+                                Vendor
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="invoiceTable">
+
+                        <tr>
+
+                            <td colspan="6">
+                                Loading invoices...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ======================================
+         WEBSITE BUILDER
+    ======================================= -->
+
+    <section
+        id="websiteBuilderSection"
+        class="website-builder"
+        style="display: none;"
+    >
+
+
+        <div class="website-builder-header">
+
+            <h2>
+                Website Builder
+            </h2>
+
+            <p>
+                Generate a professional business website in seconds.
+            </p>
+
+        </div>
+
+
+        <div class="website-builder-card">
+
+
+            <div class="website-form-grid">
+
+
+                <div class="website-form-group">
+
+                    <label for="websiteBusinessName">
+                        Business Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="websiteBusinessName"
+                        placeholder="e.g. Spice Garden"
+                    >
+
+                </div>
+
+
+                <div class="website-form-group">
+
+                    <label for="websiteStyle">
+                        Website Style
+                    </label>
+
+                    <select id="websiteStyle">
+
+                        <option value="Modern">
+                            Modern
+                        </option>
+
+                        <option value="Professional">
+                            Professional
+                        </option>
+
+                        <option value="Minimal">
+                            Minimal
+                        </option>
+
+                        <option value="Elegant">
+                            Elegant
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="website-form-group full-width">
+
+                    <label for="websiteDescription">
+                        Business Description
+                    </label>
+
+                    <textarea
+                        id="websiteDescription"
+                        placeholder="Describe your business, services, products, or what the website should communicate..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="website-form-group full-width">
+
+                    <label>
+                        Website Pages
+                    </label>
+
+
+                    <div class="website-pages">
+
+
+                        <label class="website-page-option">
+
+                            <input
+                                type="checkbox"
+                                name="websitePage"
+                                value="Home"
+                                checked
+                            >
+
+                            Home
+
+                        </label>
+
+
+                        <label class="website-page-option">
+
+                            <input
+                                type="checkbox"
+                                name="websitePage"
+                                value="About"
+                                checked
+                            >
+
+                            About
+
+                        </label>
+
+
+                        <label class="website-page-option">
+
+                            <input
+                                type="checkbox"
+                                name="websitePage"
+                                value="Services"
+                                checked
+                            >
+
+                            Services
+
+                        </label>
+
+
+                        <label class="website-page-option">
+
+                            <input
+                                type="checkbox"
+                                name="websitePage"
+                                value="Contact"
+                                checked
+                            >
+
+                            Contact
+
+                        </label>
+
+
+                        <label class="website-page-option">
+
+                            <input
+                                type="checkbox"
+                                name="websitePage"
+                                value="Menu"
+                            >
+
+                            Menu
+
+                        </label>
+
+
+                        <label class="website-page-option">
+
+                            <input
+                                type="checkbox"
+                                name="websitePage"
+                                value="Portfolio"
+                            >
+
+                            Portfolio
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                id="generateWebsiteButton"
+                class="website-generate-button"
+                onclick="generateWebsite()"
+            >
+                ✨ Generate Website
+            </button>
+
+
+            <div
+                id="websiteStatus"
+                class="website-status"
+            ></div>
+
+
+            <div
+                id="websiteResult"
+                class="website-result"
+            >
+
+                <h3>
+                    🎉 Website Generated Successfully
+                </h3>
+
+
+                <p id="websiteResultName">
+                    Your website is ready.
+                </p>
+
+
+                <div class="website-result-buttons">
+
+
+                    <a
+                        id="websitePreviewButton"
+                        class="website-action-button website-preview-button"
+                        href="#"
+                        target="_blank"
+                    >
+                        👁 Preview Website
+                    </a>
+
+
+                    <a
+                        id="websiteDownloadButton"
+                        class="website-action-button website-download-button"
+                        href="#"
+                    >
+                        ⬇ Download ZIP
+                    </a>
+
+
+                </div>
+
+
+                <div
+                    id="websiteFolderInfo"
+                    class="website-info"
+                ></div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ======================================
+         GENERATED WEBSITES
+    ======================================= -->
+
+    <section
+        id="generatedWebsitesSection"
+        class="generated-websites"
+        style="display: none;"
+    >
+
+
+        <div class="generated-websites-card">
+
+
+            <div class="generated-websites-header">
+
+                <div>
+
+                    <h2>
+                        Generated Websites
+                    </h2>
+
+                    <p>
+                        Preview and download websites created with AI Business Studio.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="secondary-button"
+                    onclick="loadWebsites()"
+                >
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+            <div
+                id="websiteList"
+                class="website-list"
+            >
+
+                <div class="website-list-empty">
+                    Loading websites...
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- ==========================================
+     UPLOAD INVOICE MODAL
+========================================== -->
+
+<div
+    id="uploadModal"
+    class="modal"
+    style="display: none;"
+>
+
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+
+            <h2>
+                Upload Invoice
+            </h2>
+
+            <button
+                class="close-button"
+                onclick="closeUpload()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <p>
+                Upload a PDF invoice to analyze it automatically.
+            </p>
+
+
+            <input
+                type="file"
+                id="invoiceFile"
+                accept=".pdf,application/pdf"
+            >
+
+
+            <div
+                id="uploadStatus"
+                class="upload-status"
+            ></div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="secondary-button"
+                onclick="closeUpload()"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                class="primary-button"
+                onclick="uploadInvoice()"
+            >
+                Analyze Invoice
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     INVOICE DETAILS MODAL
+========================================== -->
+
+<div
+    id="invoiceModal"
+    class="modal"
+    style="display: none;"
+>
+
+    <div class="modal-content invoice-details-modal">
+
+
+        <div class="modal-header">
+
+            <h2>
+                Invoice Details
+            </h2>
+
+            <button
+                class="close-button"
+                onclick="closeInvoiceDetails()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="invoice-details-grid">
+
+
+            <div class="detail-item">
+
+                <span>
+                    Invoice Number
+                </span>
+
+                <strong id="detailInvoiceNumber">
+                    N/A
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Vendor
+                </span>
+
+                <strong id="detailVendor">
+                    N/A
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Customer
+                </span>
+
+                <strong id="detailCustomer">
+                    N/A
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Invoice Date
+                </span>
+
+                <strong id="detailDate">
+                    N/A
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Due Date
+                </span>
+
+                <strong id="detailDueDate">
+                    N/A
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    GST Number
+                </span>
+
+                <strong id="detailGST">
+                    N/A
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong id="detailSubtotal">
+                    N/A
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span>
+                    Tax
+                </span>
+
+                <strong id="detailTax">
+                    N/A
+                </strong>
+
+            </div>
+
+
+            <div class="detail-item total-detail">
+
+                <span>
+                    Total
+                </span>
+
+                <strong id="detailTotal">
+                    N/A
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="/static/app.js"></script>
+
+
+<script>
+
+
+    /* ==========================================
+       NAVIGATION
+    ========================================== */
+
+
+    function setActiveNav(activeElement) {
+
+        document
+            .querySelectorAll(".sidebar-nav .nav-item")
+            .forEach(function(item) {
+
+                item.classList.remove("active");
+
+            });
+
+
+        if (activeElement) {
+
+            activeElement.classList.add("active");
+
+        }
+
+    }
+
+
+    function hideAllSections() {
+
+        const dashboard =
+            document.getElementById(
+                "dashboardSection"
+            );
+
+        const websiteBuilder =
+            document.getElementById(
+                "websiteBuilderSection"
+            );
+
+        const generatedWebsites =
+            document.getElementById(
+                "generatedWebsitesSection"
+            );
+
+
+        if (dashboard) {
+            dashboard.style.display = "none";
+        }
+
+        const invoicesSection = document.getElementById("invoicesSection");
+        if (invoicesSection) {
+            invoicesSection.style.display = "none";
+        }
+
+        if (websiteBuilder) {
+
+            websiteBuilder.style.display =
+                "none";
+
+        }
+
+
+        if (generatedWebsites) {
+
+            generatedWebsites.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    function showDashboard() {
+        hideAllSections();
+
+        const dashboard = document.getElementById("dashboardSection");
+        if (dashboard) {
+            dashboard.style.display = "block";
+        }
+
+        setActiveNav(document.querySelector('.sidebar-nav .nav-item[href="#dashboard"]'));
+
+        // Refresh summary cards when Dashboard opens.
+        if (typeof loadInvoices === "function") {
+            loadInvoices();
+        }
+        if (typeof loadWebsites === "function") {
+            loadWebsites();
+        }
+    }
+
+    function showInvoices() {
+        hideAllSections();
+
+        const invoicesSection = document.getElementById("invoicesSection");
+        if (invoicesSection) {
+            invoicesSection.style.display = "block";
+        }
+
+        setActiveNav(document.querySelector('.sidebar-nav .nav-item[href="#invoices"]'));
+
+        if (typeof loadInvoices === "function") {
+            loadInvoices();
+        }
+
+        const invoicePanel = document.getElementById("invoicePanel");
+        if (invoicePanel) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+    }
+
+    function showWebsiteBuilder() {
+
+        hideAllSections();
+
+
+        const websiteBuilder =
+            document.getElementById(
+                "websiteBuilderSection"
+            );
+
+
+        const generatedWebsites =
+            document.getElementById(
+                "generatedWebsitesSection"
+            );
+
+
+        if (websiteBuilder) {
+
+            websiteBuilder.style.display =
+                "block";
+
+        }
+
+
+        if (generatedWebsites) {
+
+            generatedWebsites.style.display =
+                "block";
+
+        }
+
+
+        setActiveNav(
+            document.querySelector(
+                '.sidebar-nav .nav-item[href="#website-builder"]'
+            )
+        );
+
+
+        loadWebsites();
+
+    }
+
+
+    /* ==========================================
+       API ERROR FORMATTER
+    ========================================== */
+
+
+    function formatApiError(detail) {
+
+        if (Array.isArray(detail)) {
+
+            return detail
+                .map(function(item) {
+
+                    return (
+                        item.msg ||
+                        "Invalid request."
+                    );
+
+                })
+                .join(" ");
+
+        }
+
+
+        if (
+            typeof detail === "object" &&
+            detail !== null
+        ) {
+
+            return (
+                detail.message ||
+                JSON.stringify(detail)
+            );
+
+        }
+
+
+        return String(detail);
+
+    }
+
+
+    /* ==========================================
+       WEBSITE GENERATOR
+    ========================================== */
+
+
+    async function generateWebsite() {
+
+        const businessName =
+            document.getElementById(
+                "websiteBusinessName"
+            ).value.trim();
+
+
+        const description =
+            document.getElementById(
+                "websiteDescription"
+            ).value.trim();
+
+
+        const style =
+            document.getElementById(
+                "websiteStyle"
+            ).value;
+
+
+        const status =
+            document.getElementById(
+                "websiteStatus"
+            );
+
+
+        const button =
+            document.getElementById(
+                "generateWebsiteButton"
+            );
+
+
+        const result =
+            document.getElementById(
+                "websiteResult"
+            );
+
+
+        if (!businessName) {
+
+            status.textContent =
+                "Please enter a business name.";
+
+            return;
+
+        }
+
+
+        if (!description) {
+
+            status.textContent =
+                "Please enter a business description.";
+
+            return;
+
+        }
+
+
+        const pageInputs =
+            document.querySelectorAll(
+                'input[name="websitePage"]:checked'
+            );
+
+
+        const pages =
+            Array.from(pageInputs).map(
+                function(input) {
+
+                    return input.value;
+
+                }
+            );
+
+
+        if (pages.length === 0) {
+
+            status.textContent =
+                "Please select at least one page.";
+
+            return;
+
+        }
+
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "Generating Website...";
+
+
+        status.textContent =
+            "Creating your website...";
+
+
+        result.style.display =
+            "none";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/websites/generate",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            business_name:
+                                businessName,
+
+                            description:
+                                description,
+
+                            pages:
+                                pages,
+
+                            style:
+                                style
+
+                        })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    formatApiError(
+                        data.detail ||
+                        "Website generation failed."
+                    )
+                );
+
+            }
+
+
+            const website =
+                data.data;
+
+
+            document.getElementById(
+                "websiteResultName"
+            ).textContent =
+                businessName +
+                " is ready to preview and download.";
+
+
+            document.getElementById(
+                "websitePreviewButton"
+            ).href =
+                "/api/websites/" +
+                website.website_id +
+                "/preview";
+
+
+            document.getElementById(
+                "websiteDownloadButton"
+            ).href =
+                "/api/websites/" +
+                website.website_id +
+                "/download";
+
+
+            document.getElementById(
+                "websiteFolderInfo"
+            ).textContent =
+                "Website ID: " +
+                website.website_id;
+
+
+            result.style.display =
+                "block";
+
+
+            status.textContent =
+                "Website generated successfully!";
+
+
+            await loadWebsites();
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "Website generation error:",
+                error
+            );
+
+
+            status.textContent =
+                "Error: " +
+                error.message;
+
+        }
+
+
+        finally {
+
+            button.disabled =
+                false;
+
+
+            button.textContent =
+                "✨ Generate Website";
+
+        }
+
+    }
+
+
+    /* ==========================================
+       LOAD GENERATED WEBSITES
+    ========================================== */
+
+
+    async function loadWebsites() {
+
+        const list =
+            document.getElementById(
+                "websiteList"
+            );
+
+
+        if (!list) {
+
+            return;
+
+        }
+
+
+        list.innerHTML = `
+            <div class="website-list-empty">
+                Loading websites...
+            </div>
+        `;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/websites"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load websites."
+                );
+
+            }
+
+
+            const result =
+                await response.json();
+
+
+            const websites =
+                result.data || [];
+
+
+            const count =
+                document.getElementById(
+                    "totalWebsites"
+                );
+
+
+            if (count) {
+
+                count.textContent =
+                    websites.length;
+
+            }
+
+
+            if (websites.length === 0) {
+
+                list.innerHTML = `
+                    <div class="website-list-empty">
+                        No websites have been generated yet.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            list.innerHTML =
+                websites.map(
+                    function(website) {
+
+                        const name =
+                            escapeHtml(
+                                website.business_name ||
+                                "Business Website"
+                            );
+
+
+                        const description =
+                            escapeHtml(
+                                website.description ||
+                                "Website generated with AI Business Studio."
+                            );
+
+
+                        const style =
+                            escapeHtml(
+                                website.style ||
+                                "Modern"
+                            );
+
+
+                        const created =
+                            website.created_at
+                                ? new Date(
+                                    website.created_at
+                                ).toLocaleDateString()
+                                : "Recently";
+
+
+                        return `
+
+                            <div class="website-item">
+
+
+                                <div class="website-item-icon">
+                                    🌐
+                                </div>
+
+
+                                <h3>
+                                    ${name}
+                                </h3>
+
+
+                                <p class="website-item-description">
+                                    ${description}
+                                </p>
+
+
+                                <div class="website-item-meta">
+
+                                    <span class="website-meta-badge">
+                                        ${style}
+                                    </span>
+
+
+                                    <span class="website-meta-badge">
+                                        Created ${created}
+                                    </span>
+
+
+                                    <span class="website-meta-badge">
+                                        ID #${website.website_id}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="website-item-actions">
+
+
+                                    <a
+                                        href="${website.preview_url}"
+                                        target="_blank"
+                                        class="website-list-preview"
+                                    >
+                                        👁 Preview
+                                    </a>
+
+
+                                    <a
+                                        href="${website.download_url}"
+                                        class="website-list-download"
+                                    >
+                                        ⬇ Download
+                                    </a>
+
+
+                                    <button
+                                        type="button"
+                                        class="website-list-delete"
+                                        onclick="deleteWebsite(${website.website_id})"
+                                    >
+                                        🗑 Delete
+                                    </button>
+
+
+                                </div>
+
+
+                            </div>
+
+                        `;
+
+                    }
+                ).join("");
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "Website list error:",
+                error
+            );
+
+
+            list.innerHTML = `
+                <div class="website-list-empty">
+                    Unable to load generated websites.
+                </div>
+            `;
+
+        }
+
+    }
+
+
+    /* ==========================================
+       DELETE WEBSITE
+    ========================================== */
+
+
+    async function deleteWebsite(
+        websiteId
+    ) {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to delete this website?"
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/websites/" +
+                    websiteId,
+                    {
+                        method: "DELETE"
+                    }
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    formatApiError(
+                        result.detail ||
+                        "Unable to delete website."
+                    )
+                );
+
+            }
+
+
+            alert(
+                "Website deleted successfully."
+            );
+
+
+            await loadWebsites();
+
+        }
+
+
+        catch (error) {
+
+            console.error(
+                "Delete website error:",
+                error
+            );
+
+
+            alert(
+                "Error: " +
+                error.message
+            );
+
+        }
+
+    }
+
+
+    /* ==========================================
+       ESCAPE HTML
+    ========================================== */
+
+
+    function escapeHtml(
+        value
+    ) {
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* ==========================================
+       INITIAL PAGE
+    ========================================== */
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Open the section represented by the URL hash on page load.
+        if (window.location.hash === "#invoices") {
+            showInvoices();
+        } else if (window.location.hash === "#website-builder") {
+            showWebsiteBuilder();
+        } else {
+            showDashboard();
+        }
+        loadWebsites();
+    });
+
+
+</script>
+
+
+</body>
+
+</html>
